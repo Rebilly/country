@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/Rebilly/country/badge.svg?branch=master)](https://coveralls.io/github/Rebilly/country?branch=master)
+
 # Country Project
 
 ## Overview

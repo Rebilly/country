@@ -1,4 +1,7 @@
-[![Coverage Status](https://coveralls.io/repos/github/Rebilly/country/badge.svg?branch=master)](https://coveralls.io/github/Rebilly/country?branch=master)
+[![Software License][ico-license]][link-license]
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Build Status][ico-travis]][link-travis]
+[![Coverage Status][ico-coveralls]][link-coveralls]
 
 # Country Project
 
@@ -81,3 +84,14 @@ If you discover a security vulnerability, please report it to security at rebill
 ## License
 
 The Country library is open-sourced under the [MIT License](./LICENSE) distributed with the software. 
+
+
+[ico-version]: https://img.shields.io/packagist/v/Rebilly/country.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/Rebilly/country/master.svg?style=flat-square
+[ico-coveralls]: https://img.shields.io/coveralls/github/Rebilly/country.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/Rebilly/country
+[link-license]: LICENSE
+[link-travis]: https://travis-ci.org/Rebilly/country
+[link-coveralls]: https://coveralls.io/github/Rebilly/country?branch=master

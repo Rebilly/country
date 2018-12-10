@@ -11,10 +11,9 @@ class CountryTest extends TestCase
      * @test
      * @dataProvider provideInvalidData
      */
-    public function invalidConstructionThrowsException(array $data, array $expected): void
+    public function invalidConstructionThrowsException(array $data): void
     {
-        $this->expectException($expected[0]);
-        $this->expectExceptionMessage($expected[1]);
+        $this->expectExceptionObject($data['exception']);
         new Country(
             $data['isoAlpha2'],
             $data['isoAlpha3'],
@@ -109,12 +108,18 @@ class CountryTest extends TestCase
     {
         return [
             [
-                ['isoAlpha2' => 'USA', 'isoAlpha3' => 'USA'],
-                [InvalidArgumentException::class, 'IsoAlpha2 must be a 2 character string']
+                [
+                    'isoAlpha2' => 'USA',
+                    'isoAlpha3' => 'USA',
+                    'exception' => new InvalidArgumentException('IsoAlpha2 must be a 2 character string'),
+                ]
             ],
             [
-                ['isoAlpha2' => 'US', 'isoAlpha3'  => 'US'],
-                [InvalidArgumentException::class, 'IsoAlpha3 must be a 3 character string']
+                [
+                    'isoAlpha2' => 'US',
+                    'isoAlpha3' => 'US',
+                    'exception' => new InvalidArgumentException('IsoAlpha3 must be a 3 character string'),
+                ]
             ],
         ];
     }

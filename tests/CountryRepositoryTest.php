@@ -45,8 +45,9 @@ class CountryRepositoryTest extends TestCase
      */
     public function findByIsoAlpha2WithInvalidIsoAlpha2ThrowsException(): void
     {
-        $this->expectException(RecordNotFoundException::class);
-        $this->expectExceptionMessage('Cannot find country with isoAlpha2 XY');
+        $this->expectExceptionObject(
+            new RecordNotFoundException('Cannot find country with isoAlpha2 XY')
+        );
         $this->subject->findByIsoAlpha2('XY');
     }
 
@@ -76,8 +77,9 @@ class CountryRepositoryTest extends TestCase
      */
     public function findByNameWithInvalidNameThrowsException(): void
     {
-        $this->expectException(RecordNotFoundException::class);
-        $this->expectExceptionMessage('Cannot find country with name Invalid Country');
+        $this->expectExceptionObject(
+            new RecordNotFoundException('Cannot find country with name Invalid Country')
+        );
         $this->subject->findByName('Invalid Country');
     }
 
@@ -227,8 +229,9 @@ class CountryRepositoryTest extends TestCase
      */
     public function findByIsoAlpha3WithInvalidIsoAlpha3ThrowsException(): void
     {
-        $this->expectException(RecordNotFoundException::class);
-        $this->expectExceptionMessage('Cannot find country with isoAlpha3 XYZ');
+        $this->expectExceptionObject(
+            new RecordNotFoundException('Cannot find country with isoAlpha3 XYZ')
+        );
         $this->subject->findByIsoAlpha3('XYZ');
     }
 

@@ -43,6 +43,17 @@ class CountryRepositoryTest extends TestCase
     /**
      * @test
      */
+    public function findByIsoAlpha2WithInvalidIsoAlpha2ThrowsException(): void
+    {
+        $this->expectExceptionObject(
+            new RecordNotFoundException('Cannot find country with isoAlpha2 XY')
+        );
+        $this->subject->findByIsoAlpha2('XY');
+    }
+
+    /**
+     * @test
+     */
     public function findByNameFindsCorrectCountry(): void
     {
         $expectedCommonName = 'United Kingdom';
@@ -59,6 +70,17 @@ class CountryRepositoryTest extends TestCase
         self::assertSame($expectedOfficialName, $result->getOfficialName());
         self::assertSame($expectedContinent, $result->getContinent());
         self::assertSame($expectedTLD, $result->getTopLevelDomain());
+    }
+
+    /**
+     * @test
+     */
+    public function findByNameWithInvalidNameThrowsException(): void
+    {
+        $this->expectExceptionObject(
+            new RecordNotFoundException('Cannot find country with name Invalid Country')
+        );
+        $this->subject->findByName('Invalid Country');
     }
 
     /**
@@ -89,6 +111,24 @@ class CountryRepositoryTest extends TestCase
     {
         $this->expectException(RecordNotFoundException::class);
         $this->subject->findByOfficialName('Rebilly');
+    }
+
+    /**
+     * @test
+     */
+    public function hasWithOfficialName(): void
+    {
+        $this->assertTrue($this->subject->hasWithOfficialName('United States of America'));
+        $this->assertFalse($this->subject->hasWithOfficialName('United States'));
+    }
+
+    /**
+     * @test
+     */
+    public function hasWithCommonName(): void
+    {
+        $this->assertTrue($this->subject->hasWithCommonName('United States'));
+        $this->assertFalse($this->subject->hasWithCommonName('United States of America'));
     }
 
     /**
@@ -182,6 +222,17 @@ class CountryRepositoryTest extends TestCase
         self::assertSame($expectedOfficialName, $result->getOfficialName());
         self::assertSame($expectedContinent, $result->getContinent());
         self::assertSame($expectedTLD, $result->getTopLevelDomain());
+    }
+
+    /**
+     * @test
+     */
+    public function findByIsoAlpha3WithInvalidIsoAlpha3ThrowsException(): void
+    {
+        $this->expectExceptionObject(
+            new RecordNotFoundException('Cannot find country with isoAlpha3 XYZ')
+        );
+        $this->subject->findByIsoAlpha3('XYZ');
     }
 
     /**

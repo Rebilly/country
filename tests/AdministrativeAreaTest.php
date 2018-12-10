@@ -34,6 +34,7 @@ class AdministrativeAreaTest extends TestCase
         $this->assertInstanceOf(AdministrativeArea::class, $administrativeArea);
         $this->assertSame($code, $administrativeArea->getCode());
         $this->assertSame($name, $administrativeArea->getName());
+        $this->assertSame($usa, $administrativeArea->getCountry());
     }
 
     /**

@@ -112,14 +112,14 @@ class CountryTest extends TestCase
                     'isoAlpha2' => 'USA',
                     'isoAlpha3' => 'USA',
                     'exception' => new InvalidArgumentException('IsoAlpha2 must be a 2 character string'),
-                ]
+                ],
             ],
             [
                 [
                     'isoAlpha2' => 'US',
                     'isoAlpha3' => 'US',
                     'exception' => new InvalidArgumentException('IsoAlpha3 must be a 3 character string'),
-                ]
+                ],
             ],
         ];
     }

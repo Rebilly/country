@@ -24,7 +24,7 @@ class CountryRepository
         'CA' => [
             'commonName' => 'Canada',
             'officialName' => 'Canada',
-            'continent' => 'America',
+            'continent' => 'North America',
             'isoAlpha3' => 'CAN',
             'longDistancePrefix' => 1,
             'topLevelDomain' => 'ca',

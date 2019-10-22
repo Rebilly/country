@@ -260,7 +260,7 @@ class CountryRepository
             'longDistancePrefix' => 375,
             'topLevelDomain' => 'by',
             'isoNumeric' => 112,
-            'currencyIsoAlphaCode' => 'BYR',
+            'currencyIsoAlphaCode' => 'BYN',
             'isoAlpha2' => 'BY',
         ],
         'BE' => [
@@ -1371,7 +1371,7 @@ class CountryRepository
             'longDistancePrefix' => 371,
             'topLevelDomain' => 'lv',
             'isoNumeric' => 428,
-            'currencyIsoAlphaCode' => 'LVL',
+            'currencyIsoAlphaCode' => 'EUR',
             'isoAlpha2' => 'LV',
         ],
         'LB' => [
@@ -1437,7 +1437,7 @@ class CountryRepository
             'longDistancePrefix' => 370,
             'topLevelDomain' => 'lt',
             'isoNumeric' => 440,
-            'currencyIsoAlphaCode' => 'LTL',
+            'currencyIsoAlphaCode' => 'EUR',
             'isoAlpha2' => 'LT',
         ],
         'LU' => [
@@ -1569,7 +1569,7 @@ class CountryRepository
             'longDistancePrefix' => 222,
             'topLevelDomain' => 'mr',
             'isoNumeric' => 478,
-            'currencyIsoAlphaCode' => 'MRO',
+            'currencyIsoAlphaCode' => 'MRU',
             'isoAlpha2' => 'MR',
         ],
         'MU' => [
@@ -2141,7 +2141,7 @@ class CountryRepository
             'longDistancePrefix' => 239,
             'topLevelDomain' => 'st',
             'isoNumeric' => 678,
-            'currencyIsoAlphaCode' => 'STD',
+            'currencyIsoAlphaCode' => 'STN',
             'isoAlpha2' => 'ST',
         ],
         'SA' => [
@@ -2680,7 +2680,7 @@ class CountryRepository
             'longDistancePrefix' => 58,
             'topLevelDomain' => 've',
             'isoNumeric' => 862,
-            'currencyIsoAlphaCode' => 'VEF',
+            'currencyIsoAlphaCode' => 'VES',
             'isoAlpha2' => 'VE',
         ],
         'VN' => [

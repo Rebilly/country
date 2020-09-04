@@ -14,9 +14,24 @@ Fixed - for any bug fixes.
 Security - in case of vulnerabilities.
 -->
 
-## [Unreleased]
+## 1.1.0 (2020-09-04)
 
-_TBD_
+### Added
+
+- Added countries aliases for additional known names
+
+### Changed
+
+- Upgrade minimum PHP version to 7.3
+- Updated currencies list
+
+### Deprecated
+
+- Deprecated `findByOfficialName` and `findByCommonName` of `CountryRepository`
+
+### Fixed
+
+- Fixed the region of Canada to North America
 
 ## 1.0.0 (2018-12-08)
 

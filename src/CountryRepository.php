@@ -1,15 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace Country;
 
 class CountryRepository
 {
-    /**
-     * @var array Country objects keyed by IsoAlpha2
-     */
-    private $countriesByIsoAlpha2 = [];
-
-    private static $countries = [
+    private const COUNTRIES = [
         'US' => [
             'commonName' => 'United States',
             'officialName' => 'United States of America',
@@ -2751,9 +2747,11 @@ class CountryRepository
         ],
     ];
 
+    private $countriesByIsoAlpha2 = [];
+
     public function __construct()
     {
-        foreach (self::$countries as $isoAlpha2 => $data) {
+        foreach (self::COUNTRIES as $isoAlpha2 => $data) {
             $this->countriesByIsoAlpha2[$isoAlpha2] = new Country(
                 $isoAlpha2,
                 $data['isoAlpha3'],
@@ -2769,7 +2767,7 @@ class CountryRepository
     }
 
     /**
-     * Retrieve the entire list of Country objects.
+     * Retrieve the entire list of country objects.
      *
      * @return Country[]
      */
@@ -2779,232 +2777,163 @@ class CountryRepository
     }
 
     /**
-     * Retrieve a Country object by its ISO Alpha2 code.
-     *
-     * @param string $isoAlpha2 ISO Alpha2 country code Uppercase
-     *
-     * @throws RecordNotFoundException
-     *
-     * @return Country
+     * Retrieve a country object by its ISO alpha2 code.
      */
     public function findByIsoAlpha2(string $isoAlpha2): Country
     {
-        if (!$this->hasWithIsoAlpha2($isoAlpha2)) {
-            throw new RecordNotFoundException(
-                sprintf('Cannot find country with isoAlpha2 %s', $isoAlpha2)
-            );
+        $country = $this->countriesByIsoAlpha2[$isoAlpha2] ?? null;
+
+        if (!$country instanceof Country) {
+            throw new RecordNotFoundException(sprintf('Cannot find country with ISO alpha2 "%s"', $isoAlpha2));
         }
 
-        return $this->countriesByIsoAlpha2[$isoAlpha2];
+        return $country;
     }
 
     /**
-     * Lookup whether repository has a Country object with specified ISO Alpha2 code.
-     *
-     * @param string $isoAlpha2 ISO Alpha2 country code Uppercase
-     *
-     * @return bool
+     * Lookup whether the repository has a country object with specified ISO alpha2 code.
      */
     public function hasWithIsoAlpha2(string $isoAlpha2): bool
     {
-        return
-            isset($this->countriesByIsoAlpha2[$isoAlpha2])
+        return isset($this->countriesByIsoAlpha2[$isoAlpha2])
             && $this->countriesByIsoAlpha2[$isoAlpha2] instanceof Country;
     }
 
     /**
-     * Retrieve Country by officialName.
-     *
-     * @param string $officialName
-     *
-     * @throws RecordNotFoundException
-     *
-     * @return Country
+     * Retrieve a country by official name.
      */
     public function findByOfficialName(string $officialName): Country
     {
-        $officialName = mb_strtolower($officialName);
-        foreach (self::$countries as $isoAlpha2 => $countryData) {
-            if ($officialName === mb_strtolower($countryData['officialName'])
-                || $officialName === mb_strtolower(iconv('utf8', 'ASCII//TRANSLIT', $countryData['officialName']))
-            ) {
-                return $this->findByIsoAlpha2($isoAlpha2);
-            }
+        $country = $this->findCountryByCaseSensitiveProperty('officialName', $officialName);
+
+        if (!$country instanceof Country) {
+            throw new RecordNotFoundException(sprintf('Cannot find country with official name "%s"', $officialName));
         }
 
-        throw new RecordNotFoundException(
-            sprintf('Cannot find country with Official Name %s', $officialName)
-        );
+        return $country;
     }
 
     /**
-     * Lookup whether repository has Country by officialName.
-     *
-     * @param string $officialName
-     *
-     * @return bool
+     * Lookup whether the repository has a country by official name.
      */
     public function hasWithOfficialName(string $officialName): bool
     {
-        $officialName = mb_strtolower($officialName);
-        foreach (self::$countries as $isoAlpha2 => $countryData) {
-            if ($officialName === mb_strtolower($countryData['officialName'])
-                || $officialName === mb_strtolower(iconv('utf8', 'ASCII//TRANSLIT', $countryData['officialName']))
-            ) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->findCountryByCaseSensitiveProperty('officialName', $officialName) instanceof Country;
     }
 
     /**
-     * Lookup Country by isoNumeric.
-     *
-     * @param int $isoNumeric
-     *
-     * @throws RecordNotFoundException
-     *
-     * @return Country
+     * Lookup a country by ISO numeric code.
      */
     public function findByIsoNumeric(int $isoNumeric): Country
     {
-        if (!$this->hasWithIsoNumeric($isoNumeric)) {
-            throw new RecordNotFoundException(
-                sprintf('Cannot find country with isoNumeric %s', $isoNumeric)
-            );
+        $country = $this->findCountryByCaseInsensitiveProperty('isoNumeric', $isoNumeric);
+
+        if (!$country instanceof Country) {
+            throw new RecordNotFoundException(sprintf('Cannot find country with ISO numeric code "%s"', $isoNumeric));
         }
 
-        $isoAlpha2 = array_search($isoNumeric, array_column(self::$countries, 'isoNumeric', 'isoAlpha2'), true);
-
-        return $this->findByIsoAlpha2($isoAlpha2);
+        return $country;
     }
 
     /**
-     * Lookup whether repository has a Country with specified isoNumeric.
-     *
-     * @param int $isoNumeric
-     *
-     * @return bool
+     * Lookup whether the repository has a country with specified ISO numeric code.
      */
     public function hasWithIsoNumeric(int $isoNumeric): bool
     {
-        return (bool) array_search($isoNumeric, array_column(self::$countries, 'isoNumeric', 'isoAlpha2'), true);
+        return $this->findCountryByCaseInsensitiveProperty('isoNumeric', $isoNumeric) instanceof Country;
     }
 
     /**
-     * Lookup Country by commonName.
-     *
-     * @param string $commonName
-     *
-     * @throws RecordNotFoundException
-     *
-     * @return Country
+     * Lookup a country by common name.
      */
     public function findByCommonName(string $commonName): Country
     {
-        $commonName = mb_strtolower($commonName);
-        foreach (self::$countries as $isoAlpha2 => $countryData) {
-            if ($commonName === mb_strtolower($countryData['commonName'])
-                || $commonName === mb_strtolower(iconv('utf8', 'ASCII//TRANSLIT', $countryData['commonName']))
-            ) {
-                return $this->findByIsoAlpha2($isoAlpha2);
-            }
+        $country = $this->findCountryByCaseSensitiveProperty('commonName', $commonName);
+
+        if (!$country instanceof Country) {
+            throw new RecordNotFoundException(sprintf('Cannot find country with common name "%s"', $commonName));
         }
 
-        throw new RecordNotFoundException(
-            sprintf('Cannot find country with Common Name %s', $commonName)
-        );
+        return $country;
     }
 
     /**
-     * Lookup whether repository has a Country with specified commonName.
-     *
-     * @param string $commonName
-     *
-     * @return bool
+     * Lookup whether the repository has a country with specified common name.
      */
     public function hasWithCommonName(string $commonName): bool
     {
-        $commonName = mb_strtolower($commonName);
-        foreach (self::$countries as $code => $countryData) {
-            if ($commonName === mb_strtolower($countryData['commonName'])
-                || $commonName === mb_strtolower(iconv('utf8', 'ASCII//TRANSLIT', $countryData['commonName']))
-            ) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->findCountryByCaseSensitiveProperty('commonName', $commonName) instanceof Country;
     }
 
     /**
-     * Lookup country by commonName, officialName, ignoring case and accents.
-     *
-     * @param string $name
-     *
-     * @throws RecordNotFoundException
-     *
-     * @return Country
+     * Lookup a country by official name, common name, ignoring case and accents.
      */
     public function findByName(string $name): Country
     {
-        if (!$this->hasWithName($name)) {
-            throw new RecordNotFoundException(
-                sprintf('Cannot find country with name %s', $name)
-            );
+        if ($this->hasWithOfficialName($name)) {
+            return $this->findByOfficialName($name);
         }
 
-        return
-            $this->hasWithCommonName($name)
-            ? $this->findByCommonName($name)
-            : $this->findByOfficialName($name);
+        if ($this->hasWithCommonName($name)) {
+            return $this->findByCommonName($name);
+        }
+
+        throw new RecordNotFoundException(sprintf('Cannot find country with name "%s"', $name));
     }
 
     /**
-     * Lookup whether repository has a Country with specified name as either commonName or officialName,
+     * Lookup whether the repository has a country with specified name as either official name or common name,
      * ignoring case and accents.
-     *
-     * @param string $name
-     *
-     * @return bool
      */
     public function hasWithName(string $name): bool
     {
-        return $this->hasWithCommonName($name) || $this->hasWithOfficialName($name);
+        return $this->hasWithOfficialName($name) || $this->hasWithCommonName($name);
     }
 
     /**
-     * Retrieve Country by its ISO Alpha3 code.
-     *
-     * @param string $isoAlpha3
-     *
-     * @throws RecordNotFoundException
-     *
-     * @return Country
+     * Retrieve a country by its ISO alpha3 code.
      */
     public function findByIsoAlpha3(string $isoAlpha3): Country
     {
-        if (!$this->hasWithIsoAlpha3($isoAlpha3)) {
-            throw new RecordNotFoundException(
-                sprintf('Cannot find country with isoAlpha3 %s', $isoAlpha3)
-            );
+        $country = $this->findCountryByCaseInsensitiveProperty('isoAlpha3', $isoAlpha3);
+
+        if (!$country instanceof Country) {
+            throw new RecordNotFoundException(sprintf('Cannot find country with ISO alpha3 code "%s"', $isoAlpha3));
         }
 
-        $isoAlpha2 = array_search($isoAlpha3, array_column(self::$countries, 'isoAlpha3', 'isoAlpha2'), true);
-
-        return $this->findByIsoAlpha2($isoAlpha2);
+        return $country;
     }
 
     /**
-     * Lookup whether repository has a Country with specified ISO Alpha3 code.
-     *
-     * @param string $isoAlpha3
-     *
-     * @return bool
+     * Lookup whether the repository has a country with specified ISO alpha3 code.
      */
     public function hasWithIsoAlpha3(string $isoAlpha3): bool
     {
-        return array_search($isoAlpha3, array_column(self::$countries, 'isoAlpha3'), true) !== false;
+        return $this->findCountryByCaseInsensitiveProperty('isoAlpha3', $isoAlpha3) instanceof Country;
+    }
+
+    private function findCountryByCaseInsensitiveProperty(string $property, $value): ?Country
+    {
+        $alpha2Code = array_search($value, array_column(self::COUNTRIES, $property, 'isoAlpha2'), true);
+
+        return $alpha2Code
+            ? $this->findByIsoAlpha2($alpha2Code)
+            : null;
+    }
+
+    private function findCountryByCaseSensitiveProperty(string $property, string $value): ?Country
+    {
+        $value = mb_strtolower($value);
+
+        foreach (self::COUNTRIES as $code => $countryData) {
+            if ($value === mb_strtolower($countryData[$property])) {
+                return $this->findByIsoAlpha2($code);
+            }
+            if ($value === mb_strtolower(iconv('utf8', 'ASCII//TRANSLIT', $countryData[$property]))) {
+                return $this->findByIsoAlpha2($code);
+            }
+        }
+
+        return null;
     }
 }

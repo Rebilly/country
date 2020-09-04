@@ -2921,22 +2921,21 @@ class CountryRepository
             : null;
     }
 
-    private function findCountryByName(string $name): ?Country
+    private function findCountryByName(string $value): ?Country
     {
-        $name = mb_strtolower($name);
+        $value = mb_strtolower($value);
 
         foreach (self::COUNTRIES as $code => $countryData) {
-            if ($name === mb_strtolower($countryData['officialName'])) {
-                return $this->findByIsoAlpha2($code);
+            $names = [$countryData['officialName'], $countryData['commonName']];
+
+            if (isset($countryData['knownNames'])) {
+                $names = array_unique(array_merge($names, $countryData['knownNames']));
             }
-            if ($name === mb_strtolower(iconv('utf8', 'ASCII//TRANSLIT', $countryData['officialName']))) {
-                return $this->findByIsoAlpha2($code);
-            }
-            if ($name === mb_strtolower($countryData['commonName'])) {
-                return $this->findByIsoAlpha2($code);
-            }
-            if ($name === mb_strtolower(iconv('utf8', 'ASCII//TRANSLIT', $countryData['commonName']))) {
-                return $this->findByIsoAlpha2($code);
+
+            foreach ($names as $name) {
+                if ($value === mb_strtolower($name) || $value === mb_strtolower(iconv('utf8', 'ASCII//TRANSLIT', $name))) {
+                    return $this->findByIsoAlpha2($code);
+                }
             }
         }
 

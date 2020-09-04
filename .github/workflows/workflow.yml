@@ -1,0 +1,97 @@
+name: Tests
+on: [pull_request]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['7.3', '7.4']
+
+    env:
+      EXECUTE_COVERAGE: ${{ matrix.php-version == '7.3' }}
+      CLOVER_PATH: "logs/clover.xml"
+      COVERALLS_LOG_PATH: "logs/coverall-output.json"
+      COVERALLS_RUN_LOCALLY: 1
+      COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, intl, curl, json
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Install dependencies
+        run: composer install -n --no-suggest
+
+      - name: Run PhpUnit with coverage
+        if: env.EXECUTE_COVERAGE == 'true'
+        run: php vendor/bin/phpunit --testdox --colors=always --coverage-clover ${{ env.CLOVER_PATH }}
+
+      - name: Run PhpUnit
+        if: env.EXECUTE_COVERAGE != 'true'
+        run: php vendor/bin/phpunit --testdox --colors=always
+
+      - name: Coverage monitor
+        if: env.EXECUTE_COVERAGE == 'true'
+        uses: slavcodev/coverage-monitor-action@1.1.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          clover_file: ${{ env.CLOVER_PATH }}
+          threshold_alert: 0
+          threshold_warning: 50
+
+      - name: Upload coverage to Coveralls
+        if: env.EXECUTE_COVERAGE == 'true'
+        run: php vendor/bin/php-coveralls -v -o ${{ env.COVERALLS_LOG_PATH }} -x ${{ env.CLOVER_PATH }}
+
+  lint:
+    runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 1
+      matrix:
+        php-version: ['7.3']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, intl, curl, json
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Install dependencies
+        run: composer install -n --no-suggest
+
+      - name: Run PhpUnit with coverage
+        if: env.EXECUTE_COVERAGE == 'true'
+        run: php vendor/bin/phpunit --coverage-clover ${{ env.CLOVER_PATH }}
+
+      - name: Lint code
+        run: php vendor/bin/php-cs-fixer fix -vv --dry-run

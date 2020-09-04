@@ -100,7 +100,7 @@ final class CountryRepositoryTest extends TestCase
     public function hasWithOfficialName(): void
     {
         $this->assertTrue($this->getCountryRepository()->hasWithOfficialName('United States of America'));
-        $this->assertFalse($this->getCountryRepository()->hasWithOfficialName('United States'));
+        $this->assertFalse($this->getCountryRepository()->hasWithOfficialName('States'));
     }
 
     /**
@@ -109,7 +109,7 @@ final class CountryRepositoryTest extends TestCase
     public function hasWithCommonName(): void
     {
         $this->assertTrue($this->getCountryRepository()->hasWithCommonName('United States'));
-        $this->assertFalse($this->getCountryRepository()->hasWithCommonName('United States of America'));
+        $this->assertFalse($this->getCountryRepository()->hasWithCommonName('States'));
     }
 
     /**

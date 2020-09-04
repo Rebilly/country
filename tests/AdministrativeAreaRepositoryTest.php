@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace Country;
 
 use PHPUnit\Framework\TestCase;
 
-class AdministrativeAreaRepositoryTest extends TestCase
+final class AdministrativeAreaRepositoryTest extends TestCase
 {
     /**
      * @var AdministrativeAreaRepository

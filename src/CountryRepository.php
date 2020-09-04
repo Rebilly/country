@@ -1459,8 +1459,14 @@ class CountryRepository
             'isoAlpha2' => 'MO',
         ],
         'MK' => [
-            'commonName' => 'Macedonia',
-            'officialName' => 'Republic of Macedonia',
+            'commonName' => 'North Macedonia',
+            'officialName' => 'North Macedonia',
+            'knownNames' => [
+                'Macedonia',
+                'Republic of Macedonia',
+                'The Former Yugoslav Republic of Macedonia',
+                'Macedonia, The former Yugoslav Republic of',
+            ],
             'continent' => 'Europe',
             'isoAlpha3' => 'MKD',
             'longDistancePrefix' => 389,

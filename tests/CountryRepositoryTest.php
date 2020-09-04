@@ -210,7 +210,7 @@ class CountryRepositoryTest extends TestCase
     {
         $expectedCommonName = 'Canada';
         $expectedOfficialName = 'Canada';
-        $expectedContinent = 'America';
+        $expectedContinent = 'North America';
         $expectedTLD = 'ca';
 
         $isoAlpha3 = 'CAN';

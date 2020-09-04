@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace Country;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
-class CountryTest extends TestCase
+final class CountryTest extends TestCase
 {
     /**
      * @test

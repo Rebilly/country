@@ -1,19 +1,19 @@
 <?php
+declare(strict_types=1);
 
 namespace Country;
 
 /**
  * A repository of Administrative Area Value Objects.
+ *
  * AdministrativeArea corresponds to the state, province,
  * region, or other similarly defined area.
+ *
  * The name is borrowed from geonames.
  */
 class AdministrativeAreaRepository
 {
-    /**
-     * @var array multidimensional data structured like countryCode => administrativeAreaCode => name
-     */
-    private $administrativeAreaData = [
+    private const ADMINISTRATIVE_AREAS = [
         'US' => [
             'AL' => 'Alabama',
             'AK' => 'Alaska',
@@ -132,10 +132,7 @@ class AdministrativeAreaRepository
         ],
     ];
 
-    /**
-     * @var array Represents areas that go by different names
-     */
-    private $nameAliases = [
+    private const NAME_ALIASES = [
         ['countryCode' => 'CA', 'code' => 'QC', 'alias' => 'Quebec'],
     ];
 
@@ -151,7 +148,7 @@ class AdministrativeAreaRepository
 
     public function __construct(CountryRepository $countryRepository)
     {
-        foreach ($this->administrativeAreaData as $countryCode => $areas) {
+        foreach (self::ADMINISTRATIVE_AREAS as $countryCode => $areas) {
             $country = $countryRepository->findByIsoAlpha2($countryCode);
             $this->populateAdministrativeAreas($country, $areas);
         }
@@ -181,8 +178,6 @@ class AdministrativeAreaRepository
     /**
      * Retrieve a list of areas for a country code.
      *
-     * @param Country $country
-     *
      * @return Country[]
      */
     public function findByCountry(Country $country): array
@@ -208,7 +203,7 @@ class AdministrativeAreaRepository
 
     private function populateAliases(): void
     {
-        foreach ($this->nameAliases as $nameAlias) {
+        foreach (self::NAME_ALIASES as $nameAlias) {
             $countryCode = $nameAlias['countryCode'];
             $code = $nameAlias['code'];
             $alias = $nameAlias['alias'];

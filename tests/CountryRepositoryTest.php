@@ -31,6 +31,15 @@ final class CountryRepositoryTest extends TestCase
     /**
      * @test
      */
+    public function hasWithIsoAlpha2(): void
+    {
+        self::assertTrue($this->getCountryRepository()->hasWithIsoAlpha2('US'));
+        self::assertFalse($this->getCountryRepository()->hasWithIsoAlpha2('XY'));
+    }
+
+    /**
+     * @test
+     */
     public function findByNameFindsCorrectCountry(): void
     {
         $country = $this->getCountryRepository()->findByName('United Kingdom');
@@ -62,6 +71,25 @@ final class CountryRepositoryTest extends TestCase
         self::assertSame('Åland Islands', $country->getOfficialName());
         self::assertSame('Europe', $country->getContinent());
         self::assertSame('ax', $country->getTopLevelDomain());
+    }
+
+    /**
+     * @test
+     */
+    public function findByAliases(): void
+    {
+        $country = $this->getCountryRepository()->findByName('North Macedonia');
+        self::assertSame('North Macedonia', $country->getCommonName());
+
+        $aliases = [
+            'Macedonia',
+            'Republic of Macedonia',
+            'The Former Yugoslav Republic of Macedonia',
+            'Macedonia, The former Yugoslav Republic of',
+        ];
+        foreach ($aliases as $alias) {
+            $this->getCountryRepository()->findByName($alias)->equals($country);
+        }
     }
 
     /**
@@ -143,6 +171,15 @@ final class CountryRepositoryTest extends TestCase
         self::assertSame('United States of America', $country->getOfficialName());
         self::assertSame('North America', $country->getContinent());
         self::assertSame('us', $country->getTopLevelDomain());
+    }
+
+    /**
+     * @test
+     */
+    public function hasWithIsoNumeric(): void
+    {
+        self::assertTrue($this->getCountryRepository()->hasWithIsoNumeric(840));
+        self::assertFalse($this->getCountryRepository()->hasWithIsoNumeric(0));
     }
 
     /**

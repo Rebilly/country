@@ -14,6 +14,12 @@ Fixed - for any bug fixes.
 Security - in case of vulnerabilities.
 -->
 
+## 1.1.1 (2020-11-02)
+
+### Fixed
+
+- Fixed `iconv` platform compatibility issue
+
 ## 1.1.0 (2020-09-04)
 
 ### Added

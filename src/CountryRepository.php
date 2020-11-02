@@ -2933,7 +2933,7 @@ class CountryRepository
             }
 
             foreach ($names as $name) {
-                if ($value === mb_strtolower($name) || $value === mb_strtolower(iconv('utf8', 'ASCII//TRANSLIT', $name))) {
+                if ($value === mb_strtolower($name) || $value === mb_strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $name))) {
                     return $this->findByIsoAlpha2($code);
                 }
             }

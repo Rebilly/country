@@ -88,10 +88,10 @@ The Country library is open-sourced under the [MIT License](./LICENSE) distribut
 
 [ico-version]: https://img.shields.io/packagist/v/Rebilly/country.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/Rebilly/country/master.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/Rebilly/country/main.svg?style=flat-square
 [ico-coveralls]: https://img.shields.io/coveralls/github/Rebilly/country.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/Rebilly/country
 [link-license]: LICENSE
 [link-travis]: https://travis-ci.org/Rebilly/country
-[link-coveralls]: https://coveralls.io/github/Rebilly/country?branch=master
+[link-coveralls]: https://coveralls.io/github/Rebilly/country?branch=main

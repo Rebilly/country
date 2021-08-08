@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Country;
 
 use InvalidArgumentException;
+use function mb_strlen;
 
 class Country
 {

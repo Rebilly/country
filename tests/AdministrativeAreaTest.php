@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Country;
@@ -12,7 +13,7 @@ final class AdministrativeAreaTest extends TestCase
      */
     private $countryRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->countryRepository = new CountryRepository();
     }
@@ -32,10 +33,10 @@ final class AdministrativeAreaTest extends TestCase
             $usa
         );
 
-        $this->assertInstanceOf(AdministrativeArea::class, $administrativeArea);
-        $this->assertSame($code, $administrativeArea->getCode());
-        $this->assertSame($name, $administrativeArea->getName());
-        $this->assertSame($usa, $administrativeArea->getCountry());
+        self::assertInstanceOf(AdministrativeArea::class, $administrativeArea);
+        self::assertSame($code, $administrativeArea->getCode());
+        self::assertSame($name, $administrativeArea->getName());
+        self::assertSame($usa, $administrativeArea->getCountry());
     }
 
     /**
@@ -59,6 +60,6 @@ final class AdministrativeAreaTest extends TestCase
             $usa
         );
 
-        $this->assertTrue($administrativeArea1->equals($administrativeArea2));
+        self::assertTrue($administrativeArea1->equals($administrativeArea2));
     }
 }

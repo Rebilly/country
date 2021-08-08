@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Country;
 
 use PHPUnit\Framework\TestCase;
+use function count;
 
 final class AdministrativeAreaRepositoryTest extends TestCase
 {
@@ -17,7 +19,7 @@ final class AdministrativeAreaRepositoryTest extends TestCase
      */
     private $countryRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->countryRepository = new CountryRepository();
         $this->subject = new AdministrativeAreaRepository($this->countryRepository);
@@ -33,7 +35,7 @@ final class AdministrativeAreaRepositoryTest extends TestCase
         $country = $this->countryRepository->findByIsoAlpha2('US');
 
         $result = $this->subject->findByCountry($country);
-        $this->assertSame($expected, count($result));
+        self::assertSame($expected, count($result));
     }
 
     /**
@@ -47,7 +49,7 @@ final class AdministrativeAreaRepositoryTest extends TestCase
         $country = $this->countryRepository->findByIsoAlpha2('US');
 
         $administrativeArea = $this->subject->findByNameAndCountry($name, $country);
-        $this->assertSame($expected, $administrativeArea->getCode());
+        self::assertSame($expected, $administrativeArea->getCode());
     }
 
     /**

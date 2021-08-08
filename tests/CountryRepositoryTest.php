@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Country;
@@ -127,8 +128,8 @@ final class CountryRepositoryTest extends TestCase
      */
     public function hasWithOfficialName(): void
     {
-        $this->assertTrue($this->getCountryRepository()->hasWithOfficialName('United States of America'));
-        $this->assertFalse($this->getCountryRepository()->hasWithOfficialName('States'));
+        self::assertTrue($this->getCountryRepository()->hasWithOfficialName('United States of America'));
+        self::assertFalse($this->getCountryRepository()->hasWithOfficialName('States'));
     }
 
     /**
@@ -136,8 +137,8 @@ final class CountryRepositoryTest extends TestCase
      */
     public function hasWithCommonName(): void
     {
-        $this->assertTrue($this->getCountryRepository()->hasWithCommonName('United States'));
-        $this->assertFalse($this->getCountryRepository()->hasWithCommonName('States'));
+        self::assertTrue($this->getCountryRepository()->hasWithCommonName('United States'));
+        self::assertFalse($this->getCountryRepository()->hasWithCommonName('States'));
     }
 
     /**
@@ -197,7 +198,7 @@ final class CountryRepositoryTest extends TestCase
     public function getAllRetrievesFullList(): void
     {
         $data = $this->getCountryRepository()->findAll();
-        self::assertSame(249, count($data));
+        self::assertCount(249, $data);
         self::assertInstanceOf(Country::class, $data['US']);
         self::assertSame('United States', $data['US']->getCommonName());
     }
@@ -228,7 +229,7 @@ final class CountryRepositoryTest extends TestCase
      */
     public function hasWithIsoAlphaFoundValidCountry(): void
     {
-        self::assertSame(true, $this->getCountryRepository()->hasWithIsoAlpha3('USA'));
+        self::assertTrue($this->getCountryRepository()->hasWithIsoAlpha3('USA'));
     }
 
     /**
@@ -236,7 +237,7 @@ final class CountryRepositoryTest extends TestCase
      */
     public function hasWithIsoAlphaNotFoundInvalidCountry(): void
     {
-        self::assertSame(false, $this->getCountryRepository()->hasWithIsoAlpha3('USE'));
+        self::assertFalse($this->getCountryRepository()->hasWithIsoAlpha3('USE'));
     }
 
     private function getCountryRepository(): CountryRepository

@@ -1,7 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Country;
+
+use function array_column;
+use function array_merge;
+use function array_search;
+use function array_unique;
+use function iconv;
+use function mb_strtolower;
+use function sprintf;
 
 class CountryRepository
 {

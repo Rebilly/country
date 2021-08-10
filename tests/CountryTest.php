@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Country;
@@ -54,13 +55,13 @@ final class CountryTest extends TestCase
             $topLevelDomain,
             $currencyIsoAlpha
         );
-        $this->assertInstanceOf(Country::class, $country);
-        $this->assertSame($isoAlpha2, $country->getIsoAlpha2());
-        $this->assertSame($isoAlpha3, $country->getIsoAlpha3());
-        $this->assertSame($isoAlpha2, (string) $country);
-        $this->assertSame($longDistancePrefix, $country->getLongDistancePrefix());
-        $this->assertSame($isoNumeric, $country->getIsoNumeric());
-        $this->assertSame($currencyIsoAlpha, $country->getCurrencyIsoAlphaCode());
+        self::assertInstanceOf(Country::class, $country);
+        self::assertSame($isoAlpha2, $country->getIsoAlpha2());
+        self::assertSame($isoAlpha3, $country->getIsoAlpha3());
+        self::assertSame($isoAlpha2, (string) $country);
+        self::assertSame($longDistancePrefix, $country->getLongDistancePrefix());
+        self::assertSame($isoNumeric, $country->getIsoNumeric());
+        self::assertSame($currencyIsoAlpha, $country->getCurrencyIsoAlphaCode());
     }
 
     /**
@@ -102,7 +103,7 @@ final class CountryTest extends TestCase
             $currencyIsoAlpha
         );
 
-        $this->assertTrue($country->equals($canada));
+        self::assertTrue($country->equals($canada));
     }
 
     public function provideInvalidData(): array

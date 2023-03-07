@@ -14,6 +14,13 @@ Fixed - for any bug fixes.
 Security - in case of vulnerabilities.
 -->
 
+## 1.1.2 (2023-03-07)
+
+### Added
+
+- Added country name aliases for Burma, Cote d'Ivoire, Curacao, Czech Republic, East Timor, Federated States of Micronesia, Netherlands, Palestinian territories, Saint Helena, Ascension and Tristan da Cunha, and United States Virgin Islands
+- Added Republic of Kosovo with temporary user-assigned ISO codes
+
 ## 1.1.1 (2020-11-02)
 
 ### Fixed

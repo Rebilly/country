@@ -436,6 +436,9 @@ class CountryRepository
         'MM' => [
             'commonName' => 'Burma',
             'officialName' => 'Republic of the Union of Myanmar',
+            'knownNames' => [
+                'Myanmar',
+            ],
             'continent' => 'Asia',
             'isoAlpha3' => 'MMR',
             'longDistancePrefix' => 95,
@@ -623,6 +626,9 @@ class CountryRepository
         'CI' => [
             'commonName' => 'Cote d\'Ivoire',
             'officialName' => 'Republic of Côte d\'Ivoire',
+            'knownNames' => [
+                'Côte D’Ivoire',
+            ],
             'continent' => 'Africa',
             'isoAlpha3' => 'CIV',
             'longDistancePrefix' => 225,
@@ -656,6 +662,9 @@ class CountryRepository
         'CW' => [
             'commonName' => 'Curacao',
             'officialName' => 'Country of Curaçao',
+            'knownNames' => [
+                'Curaçao',
+            ],
             'continent' => 'North America',
             'isoAlpha3' => 'CUW',
             'longDistancePrefix' => 599,
@@ -678,6 +687,9 @@ class CountryRepository
         'CZ' => [
             'commonName' => 'Czech Republic',
             'officialName' => 'Czech Republic',
+            'knownNames' => [
+                'Czechia',
+            ],
             'continent' => 'Europe',
             'isoAlpha3' => 'CZE',
             'longDistancePrefix' => 420,
@@ -744,6 +756,9 @@ class CountryRepository
         'TL' => [
             'commonName' => 'East Timor',
             'officialName' => 'Democratic Republic of Timor-Leste',
+            'knownNames' => [
+                'Timor-Leste',
+            ],
             'continent' => 'Asia',
             'isoAlpha3' => 'TLS',
             'longDistancePrefix' => 670,
@@ -854,6 +869,9 @@ class CountryRepository
         'FM' => [
             'commonName' => 'Federated States of Micronesia',
             'officialName' => 'Federated States of Micronesia',
+            'knownNames' => [
+                'Micronesia',
+            ],
             'continent' => 'Oceania',
             'isoAlpha3' => 'FSM',
             'longDistancePrefix' => 691,
@@ -1729,6 +1747,10 @@ class CountryRepository
         'NL' => [
             'commonName' => 'Netherlands',
             'officialName' => 'Netherlands',
+            'knownNames' => [
+                'Caribbean Netherlands',
+                'Netherlands Antilles',
+            ],
             'continent' => 'Europe',
             'isoAlpha3' => 'NLD',
             'longDistancePrefix' => 31,
@@ -1883,6 +1905,9 @@ class CountryRepository
         'PS' => [
             'commonName' => 'Palestinian territories',
             'officialName' => 'Occupied Palestinian Territory',
+            'knownNames' => [
+                'Palestine',
+            ],
             'continent' => 'Asia',
             'isoAlpha3' => 'PSE',
             'longDistancePrefix' => 970,
@@ -2059,6 +2084,9 @@ class CountryRepository
         'SH' => [
             'commonName' => 'Saint Helena, Ascension and Tristan da Cunha',
             'officialName' => 'Saint Helena, Ascension and Tristan da Cunha',
+            'knownNames' => [
+                'Saint Helena',
+            ],
             'continent' => 'Africa',
             'isoAlpha3' => 'SHN',
             'longDistancePrefix' => 247,
@@ -2631,6 +2659,9 @@ class CountryRepository
         'VI' => [
             'commonName' => 'United States Virgin Islands',
             'officialName' => 'Virgin Islands of the United States',
+            'knownNames' => [
+                'U.S. Virgin Islands',
+            ],
             'continent' => 'North America',
             'isoAlpha3' => 'VIR',
             'longDistancePrefix' => 340,
@@ -2726,6 +2757,17 @@ class CountryRepository
             'isoNumeric' => 732,
             'currencyIsoAlphaCode' => 'MAD',
             'isoAlpha2' => 'EH',
+        ],
+        'XK' => [
+            'commonName' => 'Kosovo',
+            'officialName' => 'Republic of Kosovo',
+            'continent' => 'Europe',
+            'isoAlpha3' => 'XKX',
+            'longDistancePrefix' => 383,
+            'topLevelDomain' => 'xk',
+            'isoNumeric' => 926,
+            'currencyIsoAlphaCode' => 'EUR',
+            'isoAlpha2' => 'XK',
         ],
         'YE' => [
             'commonName' => 'Yemen',

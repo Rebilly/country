@@ -198,7 +198,7 @@ final class CountryRepositoryTest extends TestCase
     public function getAllRetrievesFullList(): void
     {
         $data = $this->getCountryRepository()->findAll();
-        self::assertCount(249, $data);
+        self::assertCount(250, $data);
         self::assertInstanceOf(Country::class, $data['US']);
         self::assertSame('United States', $data['US']->getCommonName());
     }

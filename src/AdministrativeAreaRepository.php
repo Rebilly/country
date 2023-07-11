@@ -181,7 +181,7 @@ class AdministrativeAreaRepository
     /**
      * Retrieve a list of areas for a country code.
      *
-     * @return Country[]
+     * @return AdministrativeArea[]
      */
     public function findByCountry(Country $country): array
     {

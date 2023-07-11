@@ -14,6 +14,12 @@ Fixed - for any bug fixes.
 Security - in case of vulnerabilities.
 -->
 
+## 1.1.3 (2023-07-11)
+
+### Fixed
+
+- Fixed phpdoc return type of `findByCountry` of `AdministrativeAreaRepository`
+
 ## 1.1.2 (2023-03-07)
 
 ### Added

@@ -18,7 +18,7 @@ Security - in case of vulnerabilities.
 
 ### Fixed
 
-- Fixed phpdoc return type of `findByCountry` of `AdministrativeAreaRepository`
+- Fixed PHPDoc return type of `AdministrativeAreaRepository::findByCountry` method
 
 ## 1.1.2 (2023-03-07)
 
